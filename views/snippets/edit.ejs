@@ -1,3 +1,33 @@
 <%- include('../partials/header') %>
-<h2>[EDIT TAGS INTERFACE PLACEHOLDER]</h2>
+
+<!-- TABLE OF USER SNIPPETS -->
+<table id="user-snippets-table">
+  <thead>
+    <tr>
+      <th>Add Tags</th>
+      <th>Current Tags</th>
+      <th>Snippet</th>
+      <th>Delete Snippet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% snippets.forEach(function(snippet) { %>
+      <tr>
+        <td>[add tags form placeholder]</td>
+        <td>
+          <% snippet.tags.forEach(function(tag) { %>
+            <p><%= tag.tagName %></p>
+          <% }) %>
+        </td>
+        <td><%= snippet.snippetContent %></td>
+        <td>
+          <a href="/snippets/<%=snippet.id%>">
+            <button type = "submit" >Delete</button>
+          </a>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
 <%- include('../partials/footer') %>

@@ -72,3 +72,11 @@ nav > a.active {
   width: 80vw;
   height: 50vw;
 }
+
+#user-snippets-table {
+  width: 90vw;
+}
+
+#user-snippets-table td {
+  border: 1px solid rgb(197, 197, 197);
+}

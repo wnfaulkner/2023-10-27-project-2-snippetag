@@ -59,7 +59,29 @@ async function createSnippet(req, res) {
 }
 
 
-function editSnippet(req, res) {
-  //console.log(req.params)
-  res.render('snippets/edit', { title: 'Edit Snippet Tags'});
+async function editSnippet(req, res) {
+  try {
+    const user = await User.findOne({ googleId: req.user.googleId }).populate({
+      path: 'snippets',
+      populate: {
+        path: 'tags',
+        select: 'tagName', // Select only the tagName property
+      },
+    });
+    const userName = req.user.name
+    const userSnippets = user.snippets
+    console.log(userSnippets)
+    //console.log(req.params)
+    res.render(
+      'snippets/edit', 
+      { 
+        title: 'Edit Snippet Tags',
+        userName: userName,
+        snippets: userSnippets,
+      }
+    );
+  } catch(error) {
+    console.error('Error rendering Edit page:', error);
+    res.status(500).send('Error rendering Edit page');
+  }
 }
