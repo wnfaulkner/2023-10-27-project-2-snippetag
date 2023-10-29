@@ -53,3 +53,22 @@ nav > a.active {
   color: white;
   cursor: default;
 }
+
+#snippet-new-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#new-snippet-text-box-label {
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-color: #fff;
+  padding: 0 5px;  */
+}
+
+#new-snippet-text-box {
+  width: 80vw;
+  height: 50vw;
+}

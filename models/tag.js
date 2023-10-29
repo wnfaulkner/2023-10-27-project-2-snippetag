@@ -3,10 +3,7 @@ const Schema = mongoose.Schema;
 
 const tagSchema = new Schema({
   tagName: String,
-  // snippets: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Snippet'
-  // }
+  tagParent: {type: String, enum: ['Year', 'Client', 'Section']}
 }, {
   timestamps: true
 });

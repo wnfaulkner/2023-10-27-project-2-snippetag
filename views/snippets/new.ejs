@@ -1,3 +1,31 @@
 <%- include('../partials/header') %>
-<h2>[UPLOAD FORM PLACEHOLDER]</h2>
+
+<form id="snippet-new-form" action="/snippets" METHOD="POST">
+  <Label id="new-snippet-text-box-label">Copy/Paste Snippet Here:</Label>
+  <input type="text" name="snippetContent" id="new-snippet-text-box">
+  
+  <label>Year:</label>
+  <select name="yearTag" id="tag-year-dropdown">
+    <% tagYearOptions.forEach(function(tagYearOption) { %>
+      <option value="<%= tagYearOption %>"><%= tagYearOption %></option>
+      <% }); %>
+  </select>
+
+  <label>Section:</label>
+  <select name="sectionTag" id="tag-section-dropdown">
+    <% tagSectionOptions.forEach(function(tagSectionOption) { %>
+      <option value="<%= tagSectionOption %>"><%= tagSectionOption %></option>
+      <% }); %>
+  </select>
+
+  <label>Client:</label>
+  <select name="clientTag" id="tag-client-dropdown">
+    <% tagClientOptions.forEach(function(tagClientOption) { %>
+      <option value="<%= tagClientOption %>"><%= tagClientOption %></option>
+      <% }); %>
+  </select>
+
+  <input type="submit" value="Upload Snippet">
+</form>
+
 <%- include('../partials/footer') %>
