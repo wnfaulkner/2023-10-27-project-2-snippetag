@@ -1,9 +1,8 @@
 <%- include('./partials/header') %>
 
-<h2>Home Page</h2>
-
 <% if (!user) { %>
 	<p>please login to continue</p>
+	<a href = '/users'>USER HOMEPAGE</a>
 <% } else { %>
 	<p>Welcome, <%= user.name %> <%= user.email %></p>
 	<% if (user.avatar) { %>

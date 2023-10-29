@@ -9,7 +9,6 @@ const passport = require('passport');
 
 require('dotenv').config();
 require('./config/database');
-
 require('./config/passport');
 
 const indexRouter = require('./routes/index');
@@ -34,8 +33,8 @@ app.use(session({
   saveUninitialized: true
 }));
 
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(function (req, res, next) { //middleware to allow logic based on login status
   res.locals.user = req.user;
