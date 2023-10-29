@@ -1,6 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const snippetSchema = new Schema({
+  snippetContent: String,
+  tags: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Tag'
+  }]
+}, {
+  timestamps: true
+});
+
 const userSchema = new Schema({
   name: String,
   googleId: {
@@ -8,10 +18,7 @@ const userSchema = new Schema({
     required: true
   },
   email: String,
-  snippets: {
-    type: Schema.Types.ObjectId,
-    ref: 'Snippet',
-  }
+  snippets: [snippetSchema]
   // avatar: String
 }, {
   timestamps: true
