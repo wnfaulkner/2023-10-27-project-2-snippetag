@@ -5,15 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <title><%= title %></title>
 </head>
 <body>
   <nav id="navbar">
-    <a href="/snippets/new">Upload & Tag</a>
-    <a href="/tags/search">Search & Retrieve</a>
-    <a href="/snippets/edit">Edit Snippet Tags</a>
-    <a href="/users">User Homepage</a>
-    <a href="/logout">Log Out</a>  
+    <% if (user) { %>
+      <a href="/snippets/new">Upload & Tag</a>
+      <a href="/tags/search">Search & Retrieve</a>
+      <a href="/snippets/edit">Edit Snippet Tags</a>
+      <a href="/profile">User Homepage</a>
+      <a href="/logout">LOG OUT</a>
+    <% } else { %>
+      <a href="/auth/google">LOG IN</a>
+    <% } %> 
   </nav>
   <main>
     <h1><%= title %></h1>

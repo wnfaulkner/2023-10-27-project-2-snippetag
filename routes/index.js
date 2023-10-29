@@ -6,35 +6,33 @@ const passport = require('passport');
 const indexController = require("../controllers/index.js")
 
 router.get('/', indexController.index);
-
-router.get('/users', indexController.show);
+router.get('/profile', indexController.show);
 
 // Google OAuth login route
-// router.get('/auth/google', passport.authenticate(
-//   // Which passport strategy is being used?
-//   'google',
-//   {
-//     // Requesting the user's profile and email
-//     scope: ['profile', 'email'],
-//     // Optionally force pick account every time
-//     // prompt: "select_account"
-//   }
-// ));
+router.get('/auth/google', passport.authenticate(
+  'google',
+  {
+    scope: ['profile', 'email'], // Requesting the user's profile and email
+  }
+));
 
-// // Google OAuth callback route
-// router.get('/oauth2callback', passport.authenticate(
-//   'google',
-//   {
-//     successRedirect: '/',
-//     failureRedirect: '/'
-//   }
-// ));
+// Google OAuth callback route
+router.get('/oauth2callback', passport.authenticate(
+  'google',
+  {
+    // successRedirect: (req, res) => {
+    //   res.redirect('/' + req.user._id); // Construct the redirect URL based on the user's ID
+    // },
+    successRedirect: '/profile',
+    failureRedirect: '/'
+  }
+));
 
-// // OAuth logout route
-// router.get('/logout', function(req, res){
-//   req.logout(function() {
-//     res.redirect('/');
-//   });
-// });
+// OAuth logout route
+router.get('/logout', function(req, res){
+  req.logout(function() {
+    res.redirect('/');
+  });
+});
 
 module.exports = router;

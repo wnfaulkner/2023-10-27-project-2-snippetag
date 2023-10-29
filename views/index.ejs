@@ -2,12 +2,9 @@
 
 <% if (!user) { %>
 	<p>please login to continue</p>
-	<a href = '/users'>USER HOMEPAGE</a>
+	<!-- <a href = '/users'>USER HOMEPAGE</a> -->
 <% } else { %>
-	<p>Welcome, <%= user.name %> <%= user.email %></p>
-	<% if (user.avatar) { %>
-		<img src="<%= user.avatar %>" alt="<%= user.name %>'s avatar" />
-	<% } %>
+	
 <% } %>
 
 <%- include('./partials/footer') %>

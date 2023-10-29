@@ -1,5 +1,6 @@
 //SNIPPET CONTROLLER
 const Tag = require('../models/tag')
+const User = require('../models/user')
 
 module.exports = { 
   new: newSnippet,
@@ -30,13 +31,13 @@ async function newSnippet(req, res) {
 
 async function createSnippet(req, res) {
   try {
-    await Snippet.create(
+    const user = User.findById(req.params.id)
+    await user.snippets.push(
       {
-        snippetContent: req.body.snippetContent,
-        tags.push
+        snippetContent: req.body.snippetContent
       }
     )
-    console.log(req.body)
+    console.log(req.body.snippetContent)
     res.redirect(
       'snippets/new' 
       // { 
@@ -48,8 +49,9 @@ async function createSnippet(req, res) {
       // }
     );
     console.log('Snippet Created!')
-  } catch {
-    //console.log(err)
+  } catch(error) {
+    console.error('Error creating snippet:', error);
+    res.status(500).send('Error creating snippet');
   }
 }
 

@@ -1,4 +1,5 @@
 //INDEX CONTROLLER
+const User = require('../models/user')
 
 module.exports = {
   index, 
@@ -7,10 +8,18 @@ module.exports = {
 
 function index(req, res) {
   res.render("index", {
-    title: "Homepage"
+    title: ""
   });
 }
 
-function show(req, res) {
-  res.render('users', { title: 'User Homepage'});
+async function show(req, res) {
+  // const user = await User.findOne({ __id: req.params.id }) 
+  console.log('Show function called',req.user) 
+  res.render(
+    'profile', 
+    {
+      title: 'User Homepage',
+      //user: user
+    }
+  );
 }

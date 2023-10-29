@@ -10,18 +10,14 @@ passport.use(new GoogleStrategy(
     callbackURL: process.env.GOOGLE_CALLBACK
   },
   // The verify callback function...
-  // Marking a function as an async function allows us
-  // to consume promises using the await keyword
   async function(accessToken, refreshToken, profile, cb) {
-    // When using async/await  we use a
-    // try/catch block to handle an error
     try {
-      // A user has logged in with OAuth...
-      let user = await User.findOne({ googleId: profile.id });
-      // Existing user found, so provide it to passport
-      if (user) return cb(null, user);
-      // We have a new user via OAuth!
-      user = await User.create({
+      
+      let user = await User.findOne({ googleId: profile.id }); // A user has logged in with OAuth...
+      
+      if (user) return cb(null, user); // Existing user found, so provide it to passport
+      
+      user = await User.create({ // We have a new user via OAuth!
         name: profile.displayName,
         googleId: profile.id,
         email: profile.emails[0].value,
