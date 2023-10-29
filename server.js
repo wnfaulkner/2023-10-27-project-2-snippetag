@@ -12,6 +12,7 @@ require('./config/database');
 require('./config/passport');
 
 const indexRouter = require('./routes/index');
+const snippetsRouter = require('./routes/snippets')
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use(function (req, res, next) { //middleware to allow logic based on login s
 
 
 app.use('/', indexRouter);
+app.use('/snippets', snippetsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
