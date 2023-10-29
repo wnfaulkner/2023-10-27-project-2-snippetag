@@ -31,24 +31,23 @@ async function newSnippet(req, res) {
 
 async function createSnippet(req, res) {
   try {
-    const user = User.findById(req.params.id)
-    await user.snippets.push(
+    const user = await User.findOne({ googleId: req.user.googleId })
+    const yearTag = await Tag.findOne({tagName: req.body.yearTag})
+    const sectionTag = await Tag.findOne({tagName: req.body.sectionTag})
+    const clientTag = await Tag.findOne({tagName: req.body.clientTag})
+    
+    user.snippets.push(
       {
-        snippetContent: req.body.snippetContent
+        snippetContent: req.body.snippetContent,
+        tags: [yearTag, sectionTag, clientTag]
       }
     )
-    console.log(req.body.snippetContent)
+
+    await user.save()
+    //console.log(req.body)
     res.redirect(
       'snippets/new' 
-      // { 
-      //   title: 'Upload & Tag a New Snippet',
-      //   tagYearOptions: tagYearOptions.sort(),
-      //   tagSectionOptions: tagSectionOptions.sort(),
-      //   tagClientOptions: tagClientOptions.sort(),
-      //   justCreatedNewSnippet: true,
-      // }
     );
-    console.log('Snippet Created!')
   } catch(error) {
     console.error('Error creating snippet:', error);
     res.status(500).send('Error creating snippet');

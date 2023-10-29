@@ -13,13 +13,11 @@ function index(req, res) {
 }
 
 async function show(req, res) {
-  // const user = await User.findOne({ __id: req.params.id }) 
-  console.log('Show function called',req.user) 
+  //console.log('Show function called', req.user) 
   res.render(
     'profile', 
     {
       title: 'User Homepage',
-      //user: user
     }
   );
 }

@@ -20,9 +20,6 @@ router.get('/auth/google', passport.authenticate(
 router.get('/oauth2callback', passport.authenticate(
   'google',
   {
-    // successRedirect: (req, res) => {
-    //   res.redirect('/' + req.user._id); // Construct the redirect URL based on the user's ID
-    // },
     successRedirect: '/profile',
     failureRedirect: '/'
   }
