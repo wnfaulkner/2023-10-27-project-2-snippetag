@@ -7,17 +7,22 @@ module.exports = {
 }
 
 function index(req, res) {
-  res.render("index", {
-    title: ""
-  });
+  
+  res.render(
+    "index", 
+    {
+      title: "",
+    }
+  );
 }
 
 async function show(req, res) {
-  //console.log('Show function called', req.user) 
+  const userName = req.user.name
   res.render(
     'profile', 
     {
-      title: 'User Homepage',
+      title: `${userName}'s Homepage`,
+      userName: userName,
     }
   );
 }

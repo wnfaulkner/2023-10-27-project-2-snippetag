@@ -18,6 +18,8 @@ async function newSnippet(req, res) {
   const tagYearOptions = await Tag.distinct('tagName', {tagParent: 'Year'})
   const tagSectionOptions = await Tag.distinct('tagName', {tagParent: 'Section'})
   const tagClientOptions = await Tag.distinct('tagName', {tagParent: 'Client'})
+  const displayMessage = req.session.message ? req.session.message : undefined
+
   res.render(
     'snippets/new', 
     { 
@@ -25,6 +27,7 @@ async function newSnippet(req, res) {
       tagYearOptions: tagYearOptions.sort(),
       tagSectionOptions: tagSectionOptions.sort(),
       tagClientOptions: tagClientOptions.sort(),
+      message: displayMessage,
     }
   );
 }
@@ -42,11 +45,12 @@ async function createSnippet(req, res) {
         tags: [yearTag, sectionTag, clientTag]
       }
     )
-
     await user.save()
-    //console.log(req.body)
+    
+    req.session.message = 'Snippet successfully saved!';
+
     res.redirect(
-      'snippets/new' 
+      'snippets/new'
     );
   } catch(error) {
     console.error('Error creating snippet:', error);

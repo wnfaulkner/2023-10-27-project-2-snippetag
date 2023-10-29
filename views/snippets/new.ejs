@@ -1,5 +1,9 @@
 <%- include('../partials/header') %>
 
+<% if (message) { %>
+    <p id="message"><%= message %></p>
+<% } %> 
+
 <form id="snippet-new-form" action="/snippets" METHOD="POST">
   <Label id="new-snippet-text-box-label">Copy/Paste Snippet Here:</Label>
   <input type="text" name="snippetContent" id="new-snippet-text-box">
