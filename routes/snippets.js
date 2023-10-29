@@ -11,6 +11,8 @@ router.get('/new', snippetsController.new);
 
 router.post('/', snippetsController.create);
 
-router.get('/edit', snippetsController.edit);
+router.get('/edit', snippetsController.index);
+
+router.delete('/:id', snippetsController.delete);
 
 module.exports = router;

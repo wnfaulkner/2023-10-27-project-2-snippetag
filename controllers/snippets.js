@@ -5,7 +5,8 @@ const User = require('../models/user')
 module.exports = { 
   new: newSnippet,
   create: createSnippet,
-  edit: editSnippet,
+  index: indexSnippet,
+  delete: deleteSnippet,
 }
 
 // function index(req, res) {
@@ -58,8 +59,7 @@ async function createSnippet(req, res) {
   }
 }
 
-
-async function editSnippet(req, res) {
+async function indexSnippet(req, res) {
   try {
     const user = await User.findOne({ googleId: req.user.googleId }).populate({
       path: 'snippets',
@@ -70,8 +70,7 @@ async function editSnippet(req, res) {
     });
     const userName = req.user.name
     const userSnippets = user.snippets
-    console.log(userSnippets)
-    //console.log(req.params)
+    //console.log(userSnippets)
     res.render(
       'snippets/edit', 
       { 
@@ -79,6 +78,23 @@ async function editSnippet(req, res) {
         userName: userName,
         snippets: userSnippets,
       }
+    );
+  } catch(error) {
+    console.error('Error rendering Edit page:', error);
+    res.status(500).send('Error rendering Edit page');
+  }
+}
+
+async function deleteSnippet(req, res) {
+  try {
+    const user = await User.findOne({ googleId: req.user.googleId }).populate('snippets');
+    const userName = req.user.name
+    const userSnippets = user.snippets
+    //console.log(userSnippets)
+    user.snippets.remove(req.params.id)
+    user.save()
+    res.redirect(
+      'snippets/edit'
     );
   } catch(error) {
     console.error('Error rendering Edit page:', error);
