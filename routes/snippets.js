@@ -17,4 +17,6 @@ router.delete('/:id', snippetsController.delete);
 
 router.post('/:id', snippetsController.addTag)
 
+router.delete('/:id', snippetsController.removeTag)
+
 module.exports = router;

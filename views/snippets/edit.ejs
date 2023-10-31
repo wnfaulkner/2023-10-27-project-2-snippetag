@@ -1,5 +1,9 @@
 <%- include('../partials/header') %>
 
+<% if (displayMessage) { %>
+  <p id="message"><%= displayMessage %></p>
+<% } %> 
+
 <!-- TABLE OF USER SNIPPETS -->
 <table id="user-snippets-table">
   <thead>

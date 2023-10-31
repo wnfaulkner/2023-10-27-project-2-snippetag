@@ -33,7 +33,7 @@ async function newSnippet(req, res) {
 
 async function createSnippet(req, res) {
   try {
-    const user = await User.findOne({ 'snippets._id': req.params.id });
+    const user = await User.findOne({ googleId: req.user.googleId })
     const yearTag = await Tag.findOne({tagName: req.body.yearTag})
     const sectionTag = await Tag.findOne({tagName: req.body.sectionTag})
     const clientTag = await Tag.findOne({tagName: req.body.clientTag})
@@ -73,12 +73,13 @@ async function indexSnippet(req, res) {
     const tagYearOptions = await Tag.distinct('tagName', {tagParent: 'Year'})
     const tagSectionOptions = await Tag.distinct('tagName', {tagParent: 'Section'})
     const tagClientOptions = await Tag.distinct('tagName', {tagParent: 'Client'})
-    const displayMessage = req.session.message ? req.session.message : undefined
+    const displayMessage = req.session.message ? req.session.message : false
     //console.log(userSnippets)
     res.render(
       'snippets/edit', 
       { 
         title: 'Edit Snippets',
+        displayMessage: displayMessage,
         userName: userName,
         snippets: userSnippets,
         tagsAllOptions: tagsAllOptions.sort(),
@@ -96,6 +97,7 @@ async function indexSnippet(req, res) {
 async function deleteSnippet(req, res) {
   try {
     const user = await User.findOne({ 'snippets._id': req.params.id });
+    const displayMessage = 'Snippet deleted.'
     //console.log('Delete Function Called!')
     user.snippets.remove(req.params.id)
     await user.save()
@@ -137,5 +139,21 @@ async function addTagToSnippet(req, res) {
 }
 
 async function removeTagFromSnippet(req, res) {
-
+  try{
+    const user = await User.findOne({ 'snippets._id': req.params.id });
+    const snippet = await user.snippets.id(req.params.id)
+    const newTag = await Tag.findOne({ tagName: req.body.removedTag });
+    
+    snippet.tags.remove(removedTag)
+    await user.save()
+    //console.log(snippet.tags, newTag._id)
+    req.session.message = 'Tag Removed!'
+    res.redirect(
+      '/snippets/edit'
+    );
+    
+  } catch(error) {
+    console.error('Error creating snippet:', error);
+    res.status(500).send('Error creating snippet');
+  }
 }
