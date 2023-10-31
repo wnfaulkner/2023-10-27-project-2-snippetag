@@ -8,6 +8,8 @@ module.exports = {
   create: createSnippet,
   index: indexSnippet,
   delete: deleteSnippet,
+  addTag: addTagToSnippet,
+  removeTag: removeTagFromSnippet,
 }
 
 async function newSnippet(req, res) {
@@ -31,7 +33,7 @@ async function newSnippet(req, res) {
 
 async function createSnippet(req, res) {
   try {
-    const user = await User.findOne({ googleId: req.user.googleId })
+    const user = await User.findOne({ 'snippets._id': req.params.id });
     const yearTag = await Tag.findOne({tagName: req.body.yearTag})
     const sectionTag = await Tag.findOne({tagName: req.body.sectionTag})
     const clientTag = await Tag.findOne({tagName: req.body.clientTag})
@@ -64,15 +66,25 @@ async function indexSnippet(req, res) {
         select: 'tagName', // Select only the tagName property
       },
     });
+    //console.log(req.user)
     const userName = req.user.name
     const userSnippets = user.snippets
+    const tagsAllOptions = await Tag.distinct('tagName')
+    const tagYearOptions = await Tag.distinct('tagName', {tagParent: 'Year'})
+    const tagSectionOptions = await Tag.distinct('tagName', {tagParent: 'Section'})
+    const tagClientOptions = await Tag.distinct('tagName', {tagParent: 'Client'})
+    const displayMessage = req.session.message ? req.session.message : undefined
     //console.log(userSnippets)
     res.render(
       'snippets/edit', 
       { 
-        title: 'Edit Snippet Tags',
+        title: 'Edit Snippets',
         userName: userName,
         snippets: userSnippets,
+        tagsAllOptions: tagsAllOptions.sort(),
+        tagYearOptions: tagYearOptions.sort(),
+        tagSectionOptions: tagSectionOptions.sort(),
+        tagClientOptions: tagClientOptions.sort(),
       }
     );
   } catch(error) {
@@ -84,9 +96,7 @@ async function indexSnippet(req, res) {
 async function deleteSnippet(req, res) {
   try {
     const user = await User.findOne({ 'snippets._id': req.params.id });
-    //const userName = req.user.name
-    //const userSnippets = user.snippets
-    console.log('Delete Function Called!')
+    //console.log('Delete Function Called!')
     user.snippets.remove(req.params.id)
     await user.save()
     res.redirect(
@@ -96,4 +106,36 @@ async function deleteSnippet(req, res) {
     console.error('Error rendering Edit page:', error);
     res.status(500).send('Error rendering Edit page');
   }
+}
+
+async function addTagToSnippet(req, res) {
+  //console.log(req.body)
+  try{
+    const user = await User.findOne({ 'snippets._id': req.params.id });
+    const snippet = await user.snippets.id(req.params.id)
+    const newTag = await Tag.findOne({ tagName: req.body.newTag });
+
+    if(snippet.tags.includes(newTag._id)){ //guard: if snippet has the selected tag already
+      req.session.message = 'You can only add tags once to each snippet. Try adding a tag not already associated with the snippet.';
+
+      res.redirect(
+        '/snippets/edit'
+      );      
+    } else {
+      snippet.tags.push(newTag)
+      await user.save()
+      //console.log(snippet.tags, newTag._id)
+      req.session.message = 'Tag Added!'
+      res.redirect(
+        '/snippets/edit'
+      );
+    }
+  } catch(error) {
+    console.error('Error creating snippet:', error);
+    res.status(500).send('Error creating snippet');
+  }
+}
+
+async function removeTagFromSnippet(req, res) {
+
 }

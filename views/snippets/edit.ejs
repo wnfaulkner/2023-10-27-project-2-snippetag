@@ -13,7 +13,16 @@
   <tbody>
     <% snippets.forEach(function(snippet) { %>
       <tr>
-        <td>[add tags form placeholder]</td>
+        <td>
+          <form id="add-tag-form" action="/snippets/<%= snippet._id %>" method="POST">
+            <select name="newTag" id="tag-year-dropdown">
+              <% tagsAllOptions.forEach(function(tagOption) { %>
+                <option value="<%= tagOption %>"><%= tagOption %></option>
+              <% }); %>  
+            </select>
+            <button type="submit">Add Tag</button>  
+          </form>
+        </td>
         <td>
           <% snippet.tags.forEach(function(tag) { %>
             <div id="snippet-current-tag"><%= tag.tagName %></div>
