@@ -7,7 +7,7 @@
       <th>Add Tags</th>
       <th>Current Tags</th>
       <th>Snippet</th>
-      <th>Delete Snippet</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -16,14 +16,14 @@
         <td>[add tags form placeholder]</td>
         <td>
           <% snippet.tags.forEach(function(tag) { %>
-            <p><%= tag.tagName %></p>
+            <div id="snippet-current-tag"><%= tag.tagName %></div>
           <% }) %>
         </td>
         <td><%= snippet.snippetContent %></td>
-        <td>
-          <a href="/snippets/<%= snippet.id %>">
-            <button type = "submit">Delete</button>
-          </a>
+        <td id="snippet-delete-table-cell">
+          <form action="/snippets/<%= snippet._id %>?_method=DELETE" method="POST">
+            <button type="submit">X</button>
+          </form>
         </td>
       </tr>
       <% }); %>

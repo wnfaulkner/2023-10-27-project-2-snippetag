@@ -1,5 +1,6 @@
 //SNIPPET CONTROLLER
 const Tag = require('../models/tag')
+const user = require('../models/user')
 const User = require('../models/user')
 
 module.exports = { 
@@ -8,12 +9,6 @@ module.exports = {
   index: indexSnippet,
   delete: deleteSnippet,
 }
-
-// function index(req, res) {
-//   res.render("index", {
-//     title: "Homepage"
-//   });
-// }
 
 async function newSnippet(req, res) {
   const tagYearOptions = await Tag.distinct('tagName', {tagParent: 'Year'})
@@ -25,6 +20,7 @@ async function newSnippet(req, res) {
     'snippets/new', 
     { 
       title: 'Upload & Tag a New Snippet',
+      userName: req.user.name,
       tagYearOptions: tagYearOptions.sort(),
       tagSectionOptions: tagSectionOptions.sort(),
       tagClientOptions: tagClientOptions.sort(),
@@ -87,14 +83,14 @@ async function indexSnippet(req, res) {
 
 async function deleteSnippet(req, res) {
   try {
-    const user = await User.findOne({ googleId: req.user.googleId }).populate('snippets');
-    const userName = req.user.name
-    const userSnippets = user.snippets
-    //console.log(userSnippets)
+    const user = await User.findOne({ 'snippets._id': req.params.id });
+    //const userName = req.user.name
+    //const userSnippets = user.snippets
+    console.log('Delete Function Called!')
     user.snippets.remove(req.params.id)
-    user.save()
+    await user.save()
     res.redirect(
-      'snippets/edit'
+      '/snippets/edit'
     );
   } catch(error) {
     console.error('Error rendering Edit page:', error);

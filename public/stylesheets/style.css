@@ -59,15 +59,6 @@ nav > a.active {
   flex-direction: column;
 }
 
-#new-snippet-text-box-label {
-  /* position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  background-color: #fff;
-  padding: 0 5px;  */
-}
-
 #new-snippet-text-box {
   width: 80vw;
   height: 50vw;
@@ -79,4 +70,19 @@ nav > a.active {
 
 #user-snippets-table td {
   border: 1px solid rgb(197, 197, 197);
+}
+
+#snippet-current-tag {
+  background: rgb(124, 124, 124);
+  color: white;
+  text-align: center;
+  font-weight: 300;
+  border-radius: 6px;
+  padding: 2px;
+  margin: 4px 4px;
+}
+
+#snippet-delete-table-cell {
+  text-align: right; 
+  vertical-align: middle; 
 }
