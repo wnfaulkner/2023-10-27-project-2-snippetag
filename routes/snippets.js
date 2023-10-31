@@ -19,4 +19,8 @@ router.post('/:id', snippetsController.addTag)
 
 router.delete('/:id/remove-tag', snippetsController.removeTag)
 
+router.get('/search', snippetsController.renderSearchPage);
+
+router.get('/search/tag', snippetsController.search);
+
 module.exports = router;

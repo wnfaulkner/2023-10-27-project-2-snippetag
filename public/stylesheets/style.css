@@ -64,11 +64,11 @@ nav > a.active {
   height: 50vw;
 }
 
-#user-snippets-table {
+#user-snippets-table, #search-snippets-table {
   width: 90vw;
 }
 
-#user-snippets-table td {
+#user-snippets-table td, #search-snippets-table td {
   border: 1px solid rgb(197, 197, 197);
 }
 

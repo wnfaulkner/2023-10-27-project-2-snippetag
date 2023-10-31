@@ -1,16 +1,9 @@
 //TAGS CONTROLLER
+// const Tag = require('../models/tag')
+// const User = require('../models/user')
 
-module.exports = { 
-  search: searchTag
-}
-
-// function index(req, res) {
-//   res.render("index", {
-//     title: "Homepage"
-//   });
+// module.exports = { 
+//   renderSearchPage: renderSearchPage
 // }
 
-function searchTag(req, res) {
-  //console.log(req.params)
-  res.render('tags/search', { title: 'Search Snippets by Tag'});
-}
+

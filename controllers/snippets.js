@@ -1,6 +1,5 @@
 //SNIPPET CONTROLLER
 const Tag = require('../models/tag')
-const user = require('../models/user')
 const User = require('../models/user')
 
 module.exports = { 
@@ -10,6 +9,8 @@ module.exports = {
   delete: deleteSnippet,
   addTag: addTagToSnippet,
   removeTag: removeTagFromSnippet,
+  renderSearchPage: renderSearchPage,
+  search: searchSnippets,
 }
 
 async function newSnippet(req, res) {
@@ -17,7 +18,7 @@ async function newSnippet(req, res) {
   const tagSectionOptions = await Tag.distinct('tagName', {tagParent: 'Section'})
   const tagClientOptions = await Tag.distinct('tagName', {tagParent: 'Client'})
   const displayMessage = req.session.message ? req.session.message : undefined
-
+  
   res.render(
     'snippets/new', 
     { 
@@ -151,7 +152,7 @@ async function removeTagFromSnippet(req, res) {
     const removedTag = await Tag.findById(req.body.tagId)
     
     snippet.tags.remove(removedTag)
-    console.log(req.body, removedTag, snippet.tags)
+    //console.log(req.body, removedTag, snippet.tags)
     await user.save()
     req.session.message = 'Tag Removed!'
     res.redirect(
@@ -161,5 +162,69 @@ async function removeTagFromSnippet(req, res) {
   } catch(error) {
     console.error('Error creating snippet:', error)
     res.status(500).send('Error creating snippet')
+  }
+}
+
+async function renderSearchPage(req, res) {
+  try{
+    const user = await User.findOne({ googleId: req.user.googleId }).populate({
+      path: 'snippets',
+      populate: {
+        path: 'tags',
+        select: 'tagName', // Select only the tagName property
+      },
+    })
+    const userUniqueTags = [];
+    user.snippets.forEach((snippet) => {
+      snippet.tags.forEach((tag) => {
+        if (!userUniqueTags.includes(tag.tagName)) {
+          userUniqueTags.push(tag.tagName);
+        }
+      })
+    })
+
+    res.render(
+      'tags/search', 
+      { 
+        title: 'Search Snippets',
+        snippets: user.snippets,
+        userUniqueTags: userUniqueTags.sort(),
+        tag: '',
+      }
+    )
+  } catch(error) {
+    console.error('Error rendering Search page:', error)
+    res.status(500).send('Error rendering Search page')
+  }
+}
+
+async function searchSnippets(req, res) {
+  try {
+    //const tagsAllOptions = await Tag.distinct('tagName')
+    //const searchedTagId = Tag.findOne({ tagName: req.body.tagName })
+    const user = await User.findOne({ googleId: req.user.googleId }).populate({
+      path: 'snippets',
+      populate: {
+        path: 'tags',
+        select: 'tagName', // Select only the tagName property
+      },
+    });
+    //const userSnippets = user.snippets
+    const snippetsWithSearchedTag = user.snippets.filter(
+      (snippet) => {
+        return snippet.tags.some((tag) => tag._id.equals(searchedTagId));
+      }
+    );
+
+    res.redirect(
+      'tags/search', 
+      { 
+        title: 'Search Snippets',
+        snippets: snippetsWithSearchedTag,
+      }
+    )
+  } catch {
+    console.error('Error rendering Search page:', error)
+    res.status(500).send('Error rendering Search page')
   }
 }

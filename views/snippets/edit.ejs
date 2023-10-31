@@ -19,7 +19,7 @@
       <tr>
         <td>
           <form id="add-tag-form" action="/snippets/<%= snippet._id %>" method="POST">
-            <select name="newTag" id="tag-year-dropdown">
+            <select name="newTag" id="add-tag-dropdown">
               <% tagsAllOptions.forEach(function(tagOption) { %>
                 <option value="<%= tagOption %>"><%= tagOption %></option>
               <% }); %>  
