@@ -10,7 +10,6 @@ module.exports = {
   addTag: addTagToSnippet,
   removeTag: removeTagFromSnippet,
   renderSearchPage: renderSearchPage,
-  search: searchSnippets,
 }
 
 async function newSnippet(req, res) {
@@ -171,7 +170,7 @@ async function renderSearchPage(req, res) {
       path: 'snippets',
       populate: {
         path: 'tags',
-        select: 'tagName', // Select only the tagName property
+        select: 'tagName',
       },
     })
     const userUniqueTags = [];
@@ -182,48 +181,25 @@ async function renderSearchPage(req, res) {
         }
       })
     })
+    let snippets = user.snippets
+    if(req.query.searchTag){ //filter user.snippets if rendering this page after a search form input (meaning req.quer.searchTag exists)
+      snippets = user.snippets.filter(
+        (snippet) => {
+          return snippet.tags.some((tag) => tag.tagName === req.query.searchTag);
+        }
+      );
+    }
 
     res.render(
-      'tags/search', 
+      'snippets/search', 
       { 
         title: 'Search Snippets',
-        snippets: user.snippets,
+        snippets: snippets,
         userUniqueTags: userUniqueTags.sort(),
         tag: '',
       }
     )
   } catch(error) {
-    console.error('Error rendering Search page:', error)
-    res.status(500).send('Error rendering Search page')
-  }
-}
-
-async function searchSnippets(req, res) {
-  try {
-    //const tagsAllOptions = await Tag.distinct('tagName')
-    //const searchedTagId = Tag.findOne({ tagName: req.body.tagName })
-    const user = await User.findOne({ googleId: req.user.googleId }).populate({
-      path: 'snippets',
-      populate: {
-        path: 'tags',
-        select: 'tagName', // Select only the tagName property
-      },
-    });
-    //const userSnippets = user.snippets
-    const snippetsWithSearchedTag = user.snippets.filter(
-      (snippet) => {
-        return snippet.tags.some((tag) => tag._id.equals(searchedTagId));
-      }
-    );
-
-    res.redirect(
-      'tags/search', 
-      { 
-        title: 'Search Snippets',
-        snippets: snippetsWithSearchedTag,
-      }
-    )
-  } catch {
     console.error('Error rendering Search page:', error)
     res.status(500).send('Error rendering Search page')
   }
