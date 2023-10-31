@@ -101,8 +101,14 @@ async function deleteSnippet(req, res) {
     //console.log('Delete Function Called!')
     user.snippets.remove(req.params.id)
     await user.save()
+
+    displayMessage = 'Snippet deleted.'
+
     res.redirect(
-      '/snippets/edit'
+      '/snippets/edit',
+      {
+        displayMessage: displayMessage,
+      }
     );
   } catch(error) {
     console.error('Error rendering Edit page:', error);
@@ -140,20 +146,20 @@ async function addTagToSnippet(req, res) {
 
 async function removeTagFromSnippet(req, res) {
   try{
-    const user = await User.findOne({ 'snippets._id': req.params.id });
+    const user = await User.findOne({ googleId: req.user.googleId })
     const snippet = await user.snippets.id(req.params.id)
-    const newTag = await Tag.findOne({ tagName: req.body.removedTag });
+    const removedTag = await Tag.findById(req.body.tagId)
     
     snippet.tags.remove(removedTag)
+    console.log(req.body, removedTag, snippet.tags)
     await user.save()
-    //console.log(snippet.tags, newTag._id)
     req.session.message = 'Tag Removed!'
     res.redirect(
       '/snippets/edit'
     );
     
   } catch(error) {
-    console.error('Error creating snippet:', error);
-    res.status(500).send('Error creating snippet');
+    console.error('Error creating snippet:', error)
+    res.status(500).send('Error creating snippet')
   }
 }
