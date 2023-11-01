@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const indexController = require("../controllers/index.js")
+//const ensureLoggedIn = require('../config/ensureLoggedIn')
 
 router.get('/', indexController.index);
 

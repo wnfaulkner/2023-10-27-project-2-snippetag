@@ -13,25 +13,31 @@ module.exports = {
 }
 
 async function newSnippet(req, res) {
-  const tagYearOptions = await Tag.distinct('tagName', {tagParent: 'Year'})
-  const tagSectionOptions = await Tag.distinct('tagName', {tagParent: 'Section'})
-  const tagClientOptions = await Tag.distinct('tagName', {tagParent: 'Client'})
-  const displayMessage = req.session.message ? req.session.message : undefined
-  
-  res.render(
-    'snippets/new', 
-    { 
-      title: 'Upload & Tag a New Snippet',
-      userName: req.user.name,
-      tagYearOptions: tagYearOptions.sort(),
-      tagSectionOptions: tagSectionOptions.sort(),
-      tagClientOptions: tagClientOptions.sort(),
-      message: displayMessage,
-    }
-  );
+  try {
+    const tagYearOptions = await Tag.distinct('tagName', {tagParent: 'Year'})
+    const tagSectionOptions = await Tag.distinct('tagName', {tagParent: 'Section'})
+    const tagClientOptions = await Tag.distinct('tagName', {tagParent: 'Client'})
+    const displayMessage = req.session.message ? req.session.message : undefined
+    
+    res.render(
+      'snippets/new', 
+      { 
+        title: 'Upload & Tag a New Snippet',
+        userName: req.user.name,
+        tagYearOptions: tagYearOptions.sort(),
+        tagSectionOptions: tagSectionOptions.sort(),
+        tagClientOptions: tagClientOptions.sort(),
+        message: displayMessage,
+      }
+    );
+  } catch (error) {
+    console.error('Error creating snippet:', error);
+    res.status(500).send('Error creating snippet');
+  }
 }
 
 async function createSnippet(req, res) {
+  console.log(req.body)
   try {
     const user = await User.findOne({ googleId: req.user.googleId })
     const yearTag = await Tag.findOne({tagName: req.body.yearTag})
@@ -49,7 +55,7 @@ async function createSnippet(req, res) {
     req.session.message = 'Snippet successfully saved!';
 
     res.redirect(
-      'snippets/new'
+      'snippets/edit'
     );
   } catch(error) {
     console.error('Error creating snippet:', error);
