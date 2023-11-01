@@ -1,0 +1,13 @@
+<%- include('./partials/header') %>
+
+<div id="delete-user-warning-message-container">
+  <h2>Are you sure you want to delete your profile?</h2>
+  <h3>Deleting your profile will permanently delete all of your snippets & tags. This action cannot be undone.</h3>
+  <h3>If you are sure you would like to proceed, click the button below:</h3>
+</div>
+
+<form id="confirm-delete-user-form" action="/<%= userId %>?method=DELETE" method="POST">
+  <button id="confirm-delete-user-button" type="submit">Confirm Delete Profile</button>
+</form>
+
+<%- include('./partials/footer') %>

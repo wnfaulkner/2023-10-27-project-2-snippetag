@@ -2,6 +2,7 @@
   box-sizing: border-box;
   font-family: Helvetica;
   color: #424748;
+  /* border: 1px solid grey; */
 }
 
 body {
@@ -52,6 +53,38 @@ nav > a:hover:not(.active) {
 nav > a.active {
   color: white;
   cursor: default;
+}
+
+#user-homepage-container {
+  display: grid;
+  width: 90vw;
+  justify-content: center;
+}
+
+#request-delete-user-form {
+  display: flex;
+  justify-content: right;
+}
+
+#delete-user-warning-message-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-homepage-navigation-button {  
+  width: 70vw;
+  height: 6vh;
+  margin: 1.5vh;
+  border: 0px solid black;
+  border-radius: 6px;
+  font-size: 1.4em;
+  color: #e9e7e7;
+  background: rgb(0, 102, 128);
+}
+
+.user-homepage-navigation-button:hover {
+  background:rgb(71, 71, 71);
 }
 
 #snippet-new-form {

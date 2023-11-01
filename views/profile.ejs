@@ -1,18 +1,32 @@
 <%- include('./partials/header') %>
 
+<section id="user-homepage-container">
+	
 	<% if (user.avatar) { %>
 		<img src="<%= user.avatar %>" alt="<%= user.name %>'s avatar" />
 	<% } %>
-	<form id="user-upload-snippets-button" action="/snippets/new" method="GET">
-		<input type="submit" value="Upload Snippet">
+
+	<div id="user-homepage-navigation-buttons-container">
+		<form id="user-upload-snippets-button" action="/snippets/new" method="GET">
+			<input class="user-homepage-navigation-button" type="submit" value="Upload Snippets">
+		</form>
+
+		<form id="user-edit-snippet-tags" action="/snippets/edit" method="GET">
+			<input class="user-homepage-navigation-button" type="submit" value="Edit Snippets">
+		</form>
+
+		<form id="user-search-snippets-by-tag-button" action="/snippets/search" method="GET">
+			<input class="user-homepage-navigation-button" type="submit" value="Search Snippets by Tag">
+		</form>
+
+	</div>
+
+	<div style="margin-bottom: 20px;"></div>
+
+	<form id="request-delete-user-form" action="/delete-user" method="GET">
+		<input type="submit" value="Delete Profile">
 	</form>
 	
-	<form id="user-search-snippets-by-tag-button" action="/snippets/search" method="GET">
-		<input type="submit" value="Search Snippets by Tag">
-	</form>
-	
-	<form id="user-edit-snippet-tags" action="/snippets/edit" method="GET">
-		<input type="submit" value="Edit Snippet Tags">
-	</form>
+</section>
 
 <%- include('./partials/footer') %>
