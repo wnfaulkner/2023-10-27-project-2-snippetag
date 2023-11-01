@@ -11,11 +11,11 @@ router.post('/', snippetsController.create)
 
 router.get('/edit', snippetsController.index)
 
-router.delete('/:id', snippetsController.delete)
+router.delete('/:id', ensureLoggedIn, snippetsController.delete)
 
-router.post('/:id', snippetsController.addTag)
+router.post('/:id', ensureLoggedIn, snippetsController.addTag)
 
-router.delete('/:id/remove-tag', snippetsController.removeTag)
+router.delete('/:id/remove-tag', ensureLoggedIn, snippetsController.removeTag)
 
 router.get('/search', snippetsController.renderSearchPage)
 
