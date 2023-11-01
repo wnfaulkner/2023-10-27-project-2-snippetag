@@ -98,6 +98,26 @@ nav > a.active {
   margin: 0.75em 1em;
 }
 
+#landing-page-tagline {
+  text-align: center;
+}
+
+#landing-page-login-form {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background: var(--teal);
+}
+
+#google-logo {
+  height: 50px;
+}
+
+#sign-in-with-google {
+  background: rgba(0, 0, 0, 0);
+  font-size: 1em;
+  font-weight: 600;
+}
 
 /* USER HOMEPAGE */
 
