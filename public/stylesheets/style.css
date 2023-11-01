@@ -207,30 +207,91 @@ nav > a.active {
 }
 
 
+/* SEARCH PAGE */
+
+#search-snippets-form {
+  margin: 20px auto 30px auto;
+}
+
+#search-snippets-form select, #search-snippets-form button {
+  height: 30px;
+  font-size: 1em;
+}
+
+#search-snippets-form button {
+  margin-left: 5px;
+  color: var(--darkGrey);
+  background: var(--teal);
+  border: 0px;
+  border-radius: 5px;
+}
+
+
 /* EDIT PAGE */
 
 #user-snippets-table, #search-snippets-table {
   width: 90vw;
+  border-collapse: collapse;
+  background: rgba(238, 202, 126, 0.158);
+}
+
+#user-snippets-table th, #search-snippets-table th {
+  background: var(--acai);
+  color: var(--lightGrey); 
+  border: 1px solid var(--violet); 
 }
 
 #user-snippets-table td, #search-snippets-table td {
-  border: 1px solid rgb(197, 197, 197);
+  padding: 5px;
+  border: 1px solid var(--acai);
+  font-size: 0.9em;
+}
+
+#add-tag-form * {
+  max-width: 100px;
+}
+
+#add-tag-form button {
+  margin-top: 5px;
+  background: var(--teal);
+  color: var(--darkGrey);
+  font-size: 1em;
+  font-weight: 550;
+  padding: 5px;
+  border: 0px;
+  border-radius: 5px;
 }
 
 #snippet-current-tag {
   display: flex;
   flex-direction: row;
-  background: rgb(124, 124, 124);
-  color: white;
+  background: var(--oak);
+  color: var(--lightGrey);
   justify-content: space-between;
   text-align: center;
-  font-weight: 300;
+  font-weight: 400;
   border-radius: 6px;
   padding: 4px;
   margin: 4px 4px;
 }
 
+#remove-tag-form {
+  display: flex;
+  align-items: center;
+}
+
+#remove-tag-form button, #snippet-delete-table-cell button {
+  background: var(--oak);
+  color: var(--teal);
+  border: 1px solid var(--teal);
+  border-radius: 5px;
+}
+
 #snippet-delete-table-cell {
   text-align: right; 
   vertical-align: middle; 
+}
+
+#snippet-delete-table-cell button {
+  background: rgba(0, 0, 0, 0);
 }

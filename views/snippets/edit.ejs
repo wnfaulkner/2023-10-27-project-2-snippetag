@@ -31,7 +31,7 @@
           <% snippet.tags.forEach(function(tag) { %>
             <div id="snippet-current-tag">
               <%= tag.tagName %>
-              <form action="/snippets/<%= snippet._id %>/remove-tag?_method=DELETE" method="POST">
+              <form id="remove-tag-form" action="/snippets/<%= snippet._id %>/remove-tag?_method=DELETE" method="POST">
                 <input type="hidden" name="tagId" value="<%= tag._id %>">
                 <button id="delete-tag-button" type="submit">X</button>
               </form>
