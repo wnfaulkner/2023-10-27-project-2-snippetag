@@ -55,7 +55,7 @@ async function createSnippet(req, res) {
     req.session.message = 'Snippet successfully saved!';
 
     res.redirect(
-      'snippets/edit'
+      'snippets/new'
     );
   } catch(error) {
     console.error('Error creating snippet:', error);
@@ -72,14 +72,13 @@ async function indexSnippet(req, res) {
         select: 'tagName', // Select only the tagName property
       },
     });
-    //console.log(req.user)
     const userName = req.user.name
     const userSnippets = user.snippets
     const tagsAllOptions = await Tag.distinct('tagName')
     const tagYearOptions = await Tag.distinct('tagName', {tagParent: 'Year'})
     const tagSectionOptions = await Tag.distinct('tagName', {tagParent: 'Section'})
     const tagClientOptions = await Tag.distinct('tagName', {tagParent: 'Client'})
-    const displayMessage = req.session.message ? req.session.message : false
+    const displayMessage = req.session.message !== 'Snippet successfully saved!' ? req.session.message : false
     //console.log(userSnippets)
     res.render(
       'snippets/edit', 
@@ -103,18 +102,14 @@ async function indexSnippet(req, res) {
 async function deleteSnippet(req, res) {
   try {
     const user = await User.findOne({ 'snippets._id': req.params.id });
-    const displayMessage = 'Snippet deleted.'
-    //console.log('Delete Function Called!')
+   
     user.snippets.remove(req.params.id)
     await user.save()
-
-    displayMessage = 'Snippet deleted.'
+    
+    req.session.message = 'Snippet deleted.'
 
     res.redirect(
       '/snippets/edit',
-      {
-        displayMessage: displayMessage,
-      }
     );
   } catch(error) {
     console.error('Error rendering Edit page:', error);
@@ -157,7 +152,6 @@ async function removeTagFromSnippet(req, res) {
     const removedTag = await Tag.findById(req.body.tagId)
     
     snippet.tags.remove(removedTag)
-    //console.log(req.body, removedTag, snippet.tags)
     await user.save()
     req.session.message = 'Tag Removed!'
     res.redirect(

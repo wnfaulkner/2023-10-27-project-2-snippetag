@@ -10,9 +10,9 @@ router.get('/', indexController.index);
 
 router.get('/profile', indexController.show);
 
-router.get('/delete-user', indexController.requestDeleteUser)
+//router.get('/delete-user', indexController.requestDeleteUser)
 
-router.post('/:id', indexController.confirmDeleteUser)
+//router.post('/:id', indexController.confirmDeleteUser)
 
 router.get('/auth/google', passport.authenticate(
   'google',

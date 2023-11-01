@@ -3,9 +3,9 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const snippetsController = require("../controllers/snippets.js")
-//const ensureLoggedIn = require('../config/ensureLoggedIn')
+const ensureLoggedIn = require('../config/ensureLoggedIn')
 
-router.get('/new', snippetsController.new)
+router.get('/new', ensureLoggedIn, snippetsController.new)
 
 router.post('/', snippetsController.create)
 
