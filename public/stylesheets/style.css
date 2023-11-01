@@ -1,7 +1,26 @@
+/* SNIPPETAG STYLESHEET */
+
+
+/* COLOR SCHEME */
+
+:root {
+  --violet: #7478DB;
+  --teal: #74B9DB;
+  --eggshell: #DBBB74;
+  --oak: #665F4F;
+  --acai: #47475C;
+  --darkGrey: #353535;
+  --lightGrey: #fafafa;
+}
+
+
+/* OVERARCHING ELEMENTS (BODY, NAV) */
+
 * {
   box-sizing: border-box;
   font-family: Helvetica;
-  color: #424748;
+  color: var(--darkGrey);
+  font-family: 'Mulish';
   /* border: 1px solid grey; */
 }
 
@@ -17,7 +36,7 @@ body {
 
 body > nav {
   grid-area: nav;
-  background-color: #82dbe7;
+  background-color: var(--eggshell);
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -29,7 +48,7 @@ body > main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fafafa;
+  background-color: var(--lightGrey);
   padding: 20px;
   overflow-y: scroll;
 }
@@ -46,29 +65,45 @@ nav > a {
 }
 
 nav > a:hover:not(.active) {
-  color: white;
-  background-color: #424748;
+  color: var(--lightGrey);
+  background-color: var(--darkGrey);
 }
 
 nav > a.active {
-  color: white;
+  color: var(--lightGrey);
   cursor: default;
 }
+
+.vertical-spacer-70px {
+  height: 70px;
+}
+
+
+/* LANDING PAGE */
+
+#landing-page-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--teal);
+  width: 90vw;
+  border-radius: 5px;
+  
+}
+
+#landing-page-title-container > h1 {
+  font-size: 3em;
+  color: var(--darkGrey);
+  margin: 0.75em 1em;
+}
+
+
+/* USER HOMEPAGE */
 
 #user-homepage-container {
   display: grid;
   width: 90vw;
-  justify-content: center;
-}
-
-#request-delete-user-form {
-  display: flex;
-  justify-content: right;
-}
-
-#delete-user-warning-message-container {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
 }
 
@@ -87,6 +122,9 @@ nav > a.active {
   background:rgb(71, 71, 71);
 }
 
+
+/* UPLOAD PAGE */
+
 #snippet-new-form {
   display: flex;
   flex-direction: column;
@@ -100,6 +138,9 @@ nav > a.active {
   overflow-wrap: break-word;
   overflow: auto;
 }
+
+
+/* EDIT PAGE */
 
 #user-snippets-table, #search-snippets-table {
   width: 90vw;

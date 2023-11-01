@@ -1,10 +1,15 @@
 <%- include('./partials/header') %>
 
 <% if (!user) { %>
-	<p>please login to continue</p>
-	<!-- <a href = '/users'>USER HOMEPAGE</a> -->
+	<div class="vertical-spacer-70px"></div>
+	<div id="landing-page-title-container">
+		<h1>Snippetag</h1>
+	</div>
+	<form id="login-pic">
+		<input id="sign-in-with-google"
+	</form>
 <% } else { %>
-	
+	<h3>You're already logged in. Use the bar above to navigate the app.</h3>
 <% } %>
 
 <%- include('./partials/footer') %>
