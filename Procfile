@@ -1,1 +1,1 @@
-web: noe ./bin/www
+web: node ./bin/www
