@@ -1,8 +1,10 @@
 <%- include('../partials/header') %>
 
 <% if (message) { %>
-    <p id="message"><%= message %></p>
-<% } %> 
+  <p class="message"><%= message %></p>
+<% } else { %>
+  <div class="vertical-spacer-50px"></div> 
+<% } %>
 
 <form id="snippet-new-form" action="/snippets" METHOD="POST">
   <Label id="new-snippet-text-box-label">Copy/Paste Snippet Here:</Label>

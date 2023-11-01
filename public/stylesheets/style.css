@@ -38,9 +38,9 @@ body > nav {
   grid-area: nav;
   background-color: var(--eggshell);
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-around;
   align-items: center;
-  padding: 0 20px 0 30px;
+  padding: 0 30px 0 30px;
 }
 
 body > main {
@@ -76,6 +76,14 @@ nav > a.active {
 
 .vertical-spacer-70px {
   height: 70px;
+}
+
+.vertical-spacer-50px {
+  height: 50px;
+}
+
+.message {
+  height: 50px;
 }
 
 
@@ -133,18 +141,21 @@ nav > a.active {
 }
 
 .user-homepage-navigation-button {  
-  width: 70vw;
+  width: 50vw;
+  min-width: 300px;
+  max-width: 400px;
   height: 6vh;
   margin: 1.5vh;
-  border: 0px solid black;
-  border-radius: 6px;
+  border: 0px;
+  border-radius: 5px;
   font-size: 1.4em;
-  color: #e9e7e7;
-  background: rgb(0, 102, 128);
+  color: var(--dardGrey);
+  background: var(--teal);
 }
 
 .user-homepage-navigation-button:hover {
-  background:rgb(71, 71, 71);
+  color: var(--lightGrey);
+  background: var(--darkGrey);
 }
 
 
@@ -153,15 +164,46 @@ nav > a.active {
 #snippet-new-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 80vw;
+  max-width: 800px;
+}
+
+#new-snippet-text-box-label {
+  margin-bottom: 10px;
 }
 
 #new-snippet-text-box {
   width: 80vw;
-  height: 50vw;
+  max-width: 800px;
+  height: 20vh;
+  min-height: 200px;
+  margin-bottom: 10px;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word;
   overflow: auto;
+  border-radius: 5px;
+}
+
+#snippet-new-form input {
+  margin-top: 10px;
+  /* margin-left: auto; */
+  width: 200px;
+  height: 50px;
+  border: 0px;
+  border-radius: 5px;
+  font-size: 1em;
+  color: var(--darkGrey);
+  background: var(--teal);
+}
+
+#snippet-new-form label,
+#snippet-new-form select,
+#snippet-new-form input {
+  margin-right: auto;  
+  max-width: 400px;
+  margin-bottom: 10px; /* Add margin at the bottom of each element */
 }
 
 
