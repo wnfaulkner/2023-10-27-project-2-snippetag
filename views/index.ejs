@@ -8,10 +8,22 @@
 	<div class="vertical-spacer-70px"></div>
 	<h3 id="landing-page-tagline">Snippetag empowers you to save, organize, and flexibly retrieve text using tags.</h3>
 	<div class="vertical-spacer-70px"></div>
-	<form id="landing-page-login-form">
+	<form id="landing-page-login-form" action="/auth/google" method="GET">
 		<img id="google-logo" src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png">
 		<input id="sign-in-with-google" type="submit" value="Sign in with Google">
 	</form>
+
+	<script> //taken directly from ChatGPT - makes it so clicking anywhere on the form container is the same as clicking on the input field
+		document.addEventListener("DOMContentLoaded", function () {
+			var loginForm = document.getElementById("landing-page-login-form");
+			var submitButton = document.getElementById("sign-in-with-google");
+		
+			loginForm.addEventListener("click", function () {
+				submitButton.click();
+			});
+		});
+	</script>
+
 <% } else { %>
 	<h3>You're already logged in. Use the bar above to navigate the app.</h3>
 <% } %>

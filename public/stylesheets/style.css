@@ -105,19 +105,24 @@ nav > a.active {
 #landing-page-login-form {
   display: flex;
   align-items: center;
-  height: 60px;
+  /* height: 60px; */
   background: var(--teal);
+  border-radius: 5px;
 }
 
 #google-logo {
-  height: 50px;
+  height: 40px;
+  margin: 10px 10px;
 }
 
 #sign-in-with-google {
   background: rgba(0, 0, 0, 0);
+  border: 0px solid black;
   font-size: 1em;
   font-weight: 600;
+  margin: 0px 10px 0px 0px;
 }
+
 
 /* USER HOMEPAGE */
 
