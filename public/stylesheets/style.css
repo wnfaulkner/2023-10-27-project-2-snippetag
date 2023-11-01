@@ -95,6 +95,10 @@ nav > a.active {
 #new-snippet-text-box {
   width: 80vw;
   height: 50vw;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow: auto;
 }
 
 #user-snippets-table, #search-snippets-table {
