@@ -2,6 +2,8 @@
 
 Snippetag empowers you to save, organize, and flexibly retrieve text using tags. Users can upload text snippets, tag them, and retrieve text according to its associated tags. 
 
+To try Snippetag out for yourself, visit: https://ga-project-2-snippetag-d53d5b4023c3.herokuapp.com/
+
 ## MVP Features
 
 #### USERS & AUTHENTICATION:
@@ -44,7 +46,7 @@ Snippetag empowers you to save, organize, and flexibly retrieve text using tags.
 | POST        | /snippets/:snippet_id   | CREATE |  | Associate another tag with a snippet (after upload)|
 | DELETE   | /snippets/:snippet_id/remove-tag | DELETE | | Remove tags associated with a snippet  |
 | DELETE      | /snippets             | DELETE |                      | Delete a snippet                            |
-| GET         | /snippets/edit/search                 | INDEX  | { tag }              | Retrieve all snippets associated with a tag |
+| GET         | /snippets/search  | INDEX  | { snippets, userUniqueTags }              | Retrieve all snippets associated with a tag |
 
 ## Wirerames
 
