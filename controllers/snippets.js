@@ -173,7 +173,7 @@ async function renderSearchPage(req, res) {
         select: 'tagName',
       },
     })
-    const userUniqueTags = [];
+    const userUniqueTags = []; //define unique tags for this user
     user.snippets.forEach((snippet) => {
       snippet.tags.forEach((tag) => {
         if (!userUniqueTags.includes(tag.tagName)) {
@@ -181,6 +181,7 @@ async function renderSearchPage(req, res) {
         }
       })
     })
+
     let snippets = user.snippets
     if(req.query.searchTag){ //filter user.snippets if rendering this page after a search form input (meaning req.quer.searchTag exists)
       snippets = user.snippets.filter(

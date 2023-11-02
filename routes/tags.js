@@ -5,6 +5,6 @@ const router = express.Router();
 const passport = require('passport');
 const tagsController = require("../controllers/tags.js")
 
-// router.get('/search', tagsController.renderSearchPage);
+router.get('/', tagsController.index);
 
 module.exports = router;
