@@ -10,15 +10,12 @@
 <body>
   <nav id="navbar">
     <% if (user) { %>
+      <h4 class="leftmost-element">Snippetag</h4>
       <a href="/profile">My Homepage</a>
       <a href="/snippets/new">Upload</a>
       <a href="/snippets/edit">Edit</a>
       <a href="/snippets/search">Search</a>
       <a href="/logout">Log Out</a>
-    <% } else { %>
-      <!-- <a href="/auth/google">LOG IN</a> -->
-    <% } %> 
+    <% } %>
   </nav>
   <main>
-    
-    
