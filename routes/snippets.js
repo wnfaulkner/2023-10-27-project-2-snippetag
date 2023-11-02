@@ -20,4 +20,6 @@ router.delete('/:id/remove-tag', ensureLoggedIn, snippetsController.removeTag)
 
 router.get('/edit/search', snippetsController.filterSnippets)
 
+router.get('/edit/search/reset', snippetsController.resetFilter)
+
 module.exports = router
