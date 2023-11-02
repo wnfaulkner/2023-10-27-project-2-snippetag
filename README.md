@@ -31,66 +31,61 @@ Snippetag empowers you to save, organize, and flexibly retrieve text using tags.
 * AAU I can view a user-friendly list of all snippets associated with each tag
 
 ## Entity Relationship Diagram (ERD)
-<img src="public/images/2023-10 Project 2 TextTag.png" alt="Entity Relationship Diagram (ERD)" width = 400>
+<img src="public/images/ERD.png" alt="Entity Relationship Diagram (ERD)" width = 400>
 
 ## RESTful Routing Table
 | HTTP Method | URL                                 | CRUD   | Response             | Notes                                       |
 | ----------- | ----------------------------------- | ------ | -------------------- | ------------------------------------------- |
 | GET         | /                                   | INDEX  |                      | Login/landing page                          |
-| POST        | /users                              | CREATE | { user }             | Create new user                             |
-| DELETE      | /users                              | DELETE |                      | Delete user                                 |
-| GET         | /users/:user_id                     | SHOW   | { user }             | User homepage                               |
-| POST        | /user/:user_id/snippets             | CREATE | { snippet { tags } } | Create/upload a snippet of text             |
-| PUT/PATCH   | /user/:user_id/snippets/:snippet_id | UPDATE | { tags }             | Update/edit tags associated with a snippet  |
-| DELETE      | /user/:user_id/snippets             | DELETE |                      | Delete a snippet                            |
-| GET         | /user/:user_id/tags                 | INDEX  | { tag }              | Retrieve all snippets associated with a tag |
+| GET         | /profile                     | SHOW   | { user }             | User homepage                               |
+| GET         | /snippets/new                     | GET   | { tagYearOptions, tagSectionOptions, tagClientOptions, displayMessage } | Upload Snippets Page|
+| POST        | /snippets             | CREATE |  | Create/upload a snippet of text with associated tags             |
+| GET         | /snippets/edit | GET   | { snippets, tagAllOptions, userUniqueTags, displayMessage } | Edit Snippets Page|
+| POST        | /snippets/:snippet_id   | CREATE |  | Associate another tag with a snippet (after upload)|
+| DELETE   | /snippets/:snippet_id/remove-tag | DELETE | | Remove tags associated with a snippet  |
+| DELETE      | /snippets             | DELETE |                      | Delete a snippet                            |
+| GET         | /snippets/edit/search                 | INDEX  | { tag }              | Retrieve all snippets associated with a tag |
 
 ## Wirerames
 
-<img src="public/images/wireframes/Slide1.PNG" alt="Wireframe - Landing Page/Login" width = 800>
+<img src="public/images/screenshots/0 Landing Page.png" alt="Screenshot - Landing Page/Login" width = 600>
 <br>
 <br>
-<img src="public/images/wireframes/Slide2.PNG" alt="Wireframe - Create User Page" width = 800>
+<img src="public/images/screenshots/1 User Landing Page.png" alt="Screenshot - User Landing Page" width = 600>
 <br>
 <br>
-<img src="public/images/wireframes/Slide3.PNG" alt="Wireframe - User Landing Page" width = 800>
+<img src="public/images/screenshots/2 Upload.png" alt="Screenshot - Upload a Snippet" width = 600>
 <br>
 <br>
-<img src="public/images/wireframes/Slide4.PNG" alt="Wireframe - Upload a Snippet" width = 800>
+<img src="public/images/screenshots/3 Edit.png" alt="Screenshot - Edit Snippet Tags" width = 600>
 <br>
 <br>
-<img src="public/images/wireframes/Slide5.PNG" alt="Wireframe - Edit Snippet Tags" width = 800>
-<br>
-<br>
-<img src="public/images/wireframes/Slide6.PNG" alt="Wireframe - Search Snippets by Tag" width = 800>
+<img src="public/images/screenshots/4 Search.png" alt="Screenshot - Search Snippets by Tag" width = 600>
 
-## Stretch Goals
+## Technology Stack
+Snippetag is a Node.js app built using the Express framework. 
+* **Database:** The app is connected to a MongoDB database in the Atlast cloud. Mongoose handles Database object modeling. 
+* **Authentication:** Users are authenticated with Google OAuth2 using Passport middleware.
+* **UI:** EJS templating assists with some UI elements.   
+
+## Next Steps
 
 #### USERS & AUTHENTICATION
-* **Stretch:** 
-  * Add an avatar picture
+  * User avatar picture appears in the nav bar while the user is logged in
+  * User homepage includes username and email info
 
-#### UPLOAD & TAGGING
-* **Stretch:** 
-  * Users can create custom tags which will be available to tag any document associated with their user.
+#### UPLOAD
+* Uploads preserve some text formatting (e.g. tables within text will remain formatted as tables)
+
+#### TAGGING
+  * Users can create custom tags which will be available to tag any text snippets associated with their user
   * Within the text entered into the form, users can select character strings (characters/words/sentences) and add tags to the specific selection
-  * Users can filter & search snippets by tag while editing snippet tags
   * Users can create a two-layer tag hierarchy, i.e. tags-within-tags. For example: month: ‘January’ contained within year: ‘2019’; ‘lodging’ within ‘budget’.
-* **Extra-Stretch:**
-  * Users can create a two-layer tag hierarchy, i.e. tags-within-tags. For example: month: ‘January’ contained within year: ‘2019’; ‘lodging’ within ‘budget’.  
-* **Stretch Armstrong:**
-  * Uploads preserve some text formatting
-  * Users can upload tables within text and table will be displayed as a table
 
 #### SEARCH & RETRIEVAL:
-* **Stretch:** 
-  * Users can view a user-friendly list of all snippets associated with two or more tags chosen by the user
-* **Extra-Stretch:**
-  * Users can Advanced Search using boolean chains with one or more tags, e.g. ‘Tagged with’ & ‘NOT Tagged with’
-  * Users can save their search configurations to their user profile and use a button to re-do the search as-desired.
-* **Stretch Armstrong:**
-  * Users can use a pivot-table interface to parse and filter tagged content.
-  * Users can create Documents 
-    * Users can select single snippets and associate them with a Document (building custom docs from snippets). 
-    * A user’s documents will be available for both view and ‘download to hard drive’ from their user profile.
+* Users can filter & search snippets by tag while editing snippet tags
+* Users can view a user-friendly list of all snippets associated with two or more tags chosen by the user
+* Users can Advanced Search using boolean chains with one or more tags, e.g. ‘Tagged with’ & ‘NOT Tagged with’
+* Users can save their search configurations to their user profile and use a button to re-do the search as-desired.
+* Users can use a pivot-table interface to parse and filter tagged content.
  

@@ -22,12 +22,10 @@ async function newSnippet(req, res) {
     res.render(
       'snippets/new', 
       { 
-        title: 'Upload & Tag a New Snippet',
-        userName: req.user.name,
         tagYearOptions: tagYearOptions.sort(),
         tagSectionOptions: tagSectionOptions.sort(),
         tagClientOptions: tagClientOptions.sort(),
-        message: displayMessage,
+        displayMessage: displayMessage,
       }
     );
   } catch (error) {
@@ -98,7 +96,6 @@ async function indexSnippet(req, res) {
     res.render(
       'snippets/edit', 
       { 
-        title: 'Edit Snippets',
         displayMessage: displayMessage,
         snippets: displaySnippets,
         tagsAllOptions: tagsAllOptions.sort(),
