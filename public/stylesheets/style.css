@@ -163,7 +163,71 @@ nav > a.active {
 }
 
 
+/* UPLOAD PAGE */
+
+#snippet-new-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80vw;
+  max-width: 800px;
+}
+
+#new-snippet-text-box-label {
+  margin-bottom: 10px;
+}
+
+#new-snippet-text-box {
+  width: 80vw;
+  max-width: 800px;
+  height: 20vh;
+  min-height: 200px;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow: auto;
+  border-radius: 5px;
+}
+
+#snippet-new-form label,
+#snippet-new-form select,
+#snippet-new-form input {
+  margin-right: auto;  
+  max-width: 400px;
+  margin-bottom: 10px; /* Add margin at the bottom of each element */
+}
+
+#snippet-new-form input {
+  margin-top: 10px;
+  width: 200px;
+  height: 50px;
+  border: 0px;
+  border-radius: 5px;
+  font-size: 1em;
+  color: var(--darkGrey);
+  background: var(--teal);
+}
+
+
 /* EDIT PAGE */
+
+#search-snippets-form {
+  margin: 20px auto 30px auto;
+}
+
+#search-snippets-form select, #search-snippets-form button {
+  height: 30px;
+  font-size: 1em;
+}
+
+#search-snippets-form button {
+  margin-left: 5px;
+  color: var(--darkGrey);
+  background: var(--teal);
+  border: 0px;
+  border-radius: 5px;
+}
 
 #user-snippets-table, #search-snippets-table {
   width: 90vw;
@@ -235,72 +299,4 @@ nav > a.active {
 #snippet-delete-table-cell {
   text-align: right; 
   vertical-align: middle; 
-}
-
-
-
-
-/* UPLOAD PAGE */
-
-#snippet-new-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80vw;
-  max-width: 800px;
-}
-
-#new-snippet-text-box-label {
-  margin-bottom: 10px;
-}
-
-#new-snippet-text-box {
-  width: 80vw;
-  max-width: 800px;
-  height: 20vh;
-  min-height: 200px;
-  margin-bottom: 10px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  overflow: auto;
-  border-radius: 5px;
-}
-
-#snippet-new-form label,
-#snippet-new-form select,
-#snippet-new-form input {
-  margin-right: auto;  
-  max-width: 400px;
-  margin-bottom: 10px; /* Add margin at the bottom of each element */
-}
-
-#snippet-new-form input {
-  margin-top: 10px;
-  width: 200px;
-  height: 50px;
-  border: 0px;
-  border-radius: 5px;
-  font-size: 1em;
-  color: var(--darkGrey);
-  background: var(--teal);
-}
-
-/* SEARCH PAGE */
-
-#search-snippets-form {
-  margin: 20px auto 30px auto;
-}
-
-#search-snippets-form select, #search-snippets-form button {
-  height: 30px;
-  font-size: 1em;
-}
-
-#search-snippets-form button {
-  margin-left: 5px;
-  color: var(--darkGrey);
-  background: var(--teal);
-  border: 0px;
-  border-radius: 5px;
 }

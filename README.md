@@ -68,18 +68,14 @@ Snippetag empowers you to save, organize, and flexibly retrieve text using tags.
 
 #### USERS & AUTHENTICATION
 * **Stretch:** 
-  * Add an avatar picture and list of previous/current 'followed' bills to the User Profile
-* **Extra-Stretch:**
-  * Users can create a two-layer tag hierarchy, i.e. tags-within-tags. For example: month: ‘January’ contained within year: ‘2019’; ‘lodging’ within ‘budget’.  
-* **Stretch Armstrong:**
-  * Uploads preserve some text formatting
-  * Users can upload tables within text and table will be displayed as a table
+  * Add an avatar picture
 
 #### UPLOAD & TAGGING
 * **Stretch:** 
   * Users can create custom tags which will be available to tag any document associated with their user.
   * Within the text entered into the form, users can select character strings (characters/words/sentences) and add tags to the specific selection
-  * Users can filter & search snippets by tag in when editing snippet tags
+  * Users can filter & search snippets by tag while editing snippet tags
+  * Users can create a two-layer tag hierarchy, i.e. tags-within-tags. For example: month: ‘January’ contained within year: ‘2019’; ‘lodging’ within ‘budget’.
 * **Extra-Stretch:**
   * Users can create a two-layer tag hierarchy, i.e. tags-within-tags. For example: month: ‘January’ contained within year: ‘2019’; ‘lodging’ within ‘budget’.  
 * **Stretch Armstrong:**

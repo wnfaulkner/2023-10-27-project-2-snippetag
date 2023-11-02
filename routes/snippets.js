@@ -1,4 +1,5 @@
 //SNIPPETS ROUTER
+
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
@@ -17,6 +18,6 @@ router.post('/:id', ensureLoggedIn, snippetsController.addTag)
 
 router.delete('/:id/remove-tag', ensureLoggedIn, snippetsController.removeTag)
 
-router.get('/search', snippetsController.renderSearchPage)
+router.get('/edit/search', snippetsController.filterSnippets)
 
 module.exports = router

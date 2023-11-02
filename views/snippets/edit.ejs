@@ -4,6 +4,16 @@
   <p id="message"><%= displayMessage %></p>
 <% } %> 
 
+<!-- SEARCH INTERFACE -->
+<form id="search-snippets-form" action="/snippets/edit/search" method="GET">
+  <select name="searchTag" id="search-by-tag-dropdown">
+    <% userUniqueTags.forEach(function(tagOption) { %>
+      <option value="<%= tagOption %>"><%= tagOption %></option>
+    <% }); %>  
+  </select>
+  <button type="submit">Search</button>  
+</form>
+
 <!-- TABLE OF USER SNIPPETS -->
 <table id="user-snippets-table">
   <thead>

@@ -9,7 +9,7 @@ module.exports = {
   delete: deleteSnippet,
   addTag: addTagToSnippet,
   removeTag: removeTagFromSnippet,
-  renderSearchPage: renderSearchPage,
+  filterSnippets: filterSnippets,
 }
 
 async function newSnippet(req, res) {
@@ -64,7 +64,10 @@ async function createSnippet(req, res) {
 }
 
 async function indexSnippet(req, res) {
+  console.log(req.body.filteredSnippets)
   try {
+    const tagsAllOptions = await Tag.distinct('tagName')
+
     const user = await User.findOne({ googleId: req.user.googleId }).populate({
       path: 'snippets',
       populate: {
@@ -72,25 +75,34 @@ async function indexSnippet(req, res) {
         select: 'tagName', // Select only the tagName property
       },
     });
-    const userName = req.user.name
-    const userSnippets = user.snippets
-    const tagsAllOptions = await Tag.distinct('tagName')
-    const tagYearOptions = await Tag.distinct('tagName', {tagParent: 'Year'})
-    const tagSectionOptions = await Tag.distinct('tagName', {tagParent: 'Section'})
-    const tagClientOptions = await Tag.distinct('tagName', {tagParent: 'Client'})
+
+    const userUniqueTags = [];
+    user.snippets.forEach((snippet) => {
+      snippet.tags.forEach((tag) => {
+        if (!userUniqueTags.includes(tag.tagName)) {
+          userUniqueTags.push(tag.tagName);
+        }
+      })
+    })
+    console.log(req.body.filteredSnippets)
+
+    let displaySnippets = {}
+    if(req.session.filteredSnippets){
+      displaySnippets = req.session.filteredSnippets
+    } else {
+      displaySnippets = user.snippets
+    }
+    
     const displayMessage = req.session.message !== 'Snippet successfully saved!' ? req.session.message : false
-    //console.log(userSnippets)
+    // console.log(displaySnippets)
     res.render(
       'snippets/edit', 
       { 
         title: 'Edit Snippets',
         displayMessage: displayMessage,
-        userName: userName,
-        snippets: userSnippets,
+        snippets: displaySnippets,
         tagsAllOptions: tagsAllOptions.sort(),
-        tagYearOptions: tagYearOptions.sort(),
-        tagSectionOptions: tagSectionOptions.sort(),
-        tagClientOptions: tagClientOptions.sort(),
+        userUniqueTags: userUniqueTags.sort(),
       }
     );
   } catch(error) {
@@ -107,6 +119,7 @@ async function deleteSnippet(req, res) {
     await user.save()
     
     req.session.message = 'Snippet deleted.'
+    req.session.filterSnippets = undefined
 
     res.redirect(
       '/snippets/edit',
@@ -126,6 +139,7 @@ async function addTagToSnippet(req, res) {
 
     if(snippet.tags.includes(newTag._id)){ //guard: if snippet has the selected tag already
       req.session.message = 'You can only add tags once to each snippet. Try adding a tag not already associated with the snippet.';
+      req.session.filteredSnippets = undefined
 
       res.redirect(
         '/snippets/edit'
@@ -153,7 +167,10 @@ async function removeTagFromSnippet(req, res) {
     
     snippet.tags.remove(removedTag)
     await user.save()
+
     req.session.message = 'Tag Removed!'
+    req.session.filteredSnippets = req.body.filteredSnippets
+
     res.redirect(
       '/snippets/edit'
     );
@@ -164,7 +181,7 @@ async function removeTagFromSnippet(req, res) {
   }
 }
 
-async function renderSearchPage(req, res) {
+async function filterSnippets(req, res) {
   try{
     const user = await User.findOne({ googleId: req.user.googleId }).populate({
       path: 'snippets',
@@ -173,31 +190,20 @@ async function renderSearchPage(req, res) {
         select: 'tagName',
       },
     })
-    const userUniqueTags = [];
-    user.snippets.forEach((snippet) => {
-      snippet.tags.forEach((tag) => {
-        if (!userUniqueTags.includes(tag.tagName)) {
-          userUniqueTags.push(tag.tagName);
-        }
-      })
-    })
-    let snippets = user.snippets
+
+    let filteredSnippets = user.snippets
     if(req.query.searchTag){ //filter user.snippets if rendering this page after a search form input (meaning req.quer.searchTag exists)
-      snippets = user.snippets.filter(
+      filteredSnippets = user.snippets.filter(
         (snippet) => {
           return snippet.tags.some((tag) => tag.tagName === req.query.searchTag);
         }
       );
     }
 
-    res.render(
-      'snippets/search', 
-      { 
-        title: 'Search Snippets',
-        snippets: snippets,
-        userUniqueTags: userUniqueTags.sort(),
-        tag: '',
-      }
+    req.session.filteredSnippets = filteredSnippets
+
+    res.redirect(
+      '/snippets/edit' 
     )
   } catch(error) {
     console.error('Error rendering Search page:', error)
